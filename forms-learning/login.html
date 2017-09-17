@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单应用-手机号码登录</title>
+	<style type="text/css">
+	body, button, input, legend{margin:0;padding:0;font: 16px "微软雅黑";}
+	.m-form{margin:150px auto;width:325px;border:1px solid #ddd;}
+	.m-form legend{width:100%;line-height:30px;text-indent:1em;color:#fff;background-color:#2d2d2d;}
+	.m-form fieldset{border:none;padding:20px;}
+	.m-form div{margin:20px;}
+	.m-form button{width:100%;height:30px;color:#fff;border:1px solid #ddd;cursor:pointer;background-color:#2d7dca;}
+	.m-form .msg{margin:5px;text-align: center;display: none;}
+	.m-form .txt{width: 160px;padding: 3px;border: 1px solid #aaa;vertical-align: middle;}
+	.m-form .m-err{display: block;color:#f00;}
+	.m-form .m-suc{display: block;color:green;}
+	.m-form .input-err{border-color:red;color:red;}
+	.s-disabled{background:#ddd !important;cursor: default !important;}
+	</style>
+	<script type="text/javascript">
+	function addEvent(node,event,handler){
+		if (!!node.addEventListener) {
+			node.addEventListener(event,handler,true);
+		}else{
+			node.attachEvent('on'+event,handler);
+		}
+	}
+	</script>
+</head>
+<body>
+	<form action="" class="m-form" name="loginForm" target="result" autocomplete="on">
+		<legend>手机号码登录</legend>
+		<fieldset>
+			<div class="msg" id="message"></div>
+		<div>
+			<label for="mobile">手机号：</label>
+			<input id="mobile" name="mobile" type="tel" maxlength="11" required pattern="^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$" class="txt"/>
+		</div>
+		<div>
+			<label for="password">密&nbsp&nbsp&nbsp码：</label>
+			<input id="password" name="password" type="password" class="txt"/>
+		</div>
+		<div>
+			<div><button id="loginBtn">登 录</button></div>
+		</div>
+		</fieldset>
+	</form>
+	<iframe name="result" id="result" style="display:none;"></iframe>
+
+	<script type="text/javascript">
+	  	(function(){
+	  		var form=document.forms.loginForm;
+	  		var msg=document.getElementById("message");
+	  		var frame=document.getElementById("result");
+
+	  		//输入框验证失败时边框变化
+	  		function showMessage(clazz,nmsg)
+	  		{
+	  			if (!clazz) {
+	  				msg.innerHTML='';
+	  				msg.classList.remove(".m-err");
+	  				msg.classList.remove(".m-suc");
+	  			}else{
+	  				msg.innerHTML=nmsg;
+	  				msg.classList.add(clazz);
+	  			}
+	  		}
+
+
+	  		//禁用提交按钮
+	  		function disabledBtn(disabled){
+	  			form.loginBtn.disabled=!!disabled;
+	  			var method=!disabled?'remove':'add';
+	  			form.loginBtn.classList[method]('s-disabled');
+	  		}
+
+	  		//手机验证失败
+	  		function invalidInput(node,nmsg){
+	  			showMessage('m-err',nmsg);
+	  			node.classList.add('input-err');
+	  			//node.focus();
+	  		}
+
+	  		//清除原来的状态
+	  		function clearInvalid(node){
+	  			showMessage();
+	  			//node.classList.remove('m-err');
+	  			node.classList.remove('input-err');
+	  		}
+
+	  		//手机号验证
+	  		addEvent(form.mobile,'invalid',function(event){
+	  				event.preventDefault();
+	  				var input=form.mobile;
+	  				invalidInput(input,'请输入正确的手机号码');
+	  			});
+	  		
+	  		//失焦验证
+	  		addEvent(form.mobile,'blur',function(event){
+	  				var input=form.mobile;
+	  				var value=mobile.value;
+	  				if (!/^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/.test(value)) {
+	  					event.preventDefault();
+	  					invalidInput(input,'请输入正确的手机号码');
+	  				}
+	  			})
+	  		
+			//获得焦点还原状态,focus事件不会冒泡，所以要捕获
+			addEvent(form,'focus',function(event){
+	  				//还原错误状态
+	  				clearInvalid(event.target);
+	  				//还原登录按钮状态
+	  				disabledBtn(false);
+	  			});
+
+	  		
+			
+			addEvent(form,'submit',function(event){
+	  				//密码验证
+	  				var input=form.password;
+	  				var value=input.value;
+	  				var emsg='';
+	  				if (value.length<6||value.length>16) {
+	  					emsg='密码长度必须大于6位并且小于16位';
+	  				}
+	  				else if(!/[a-z]/i.test(value)){
+	  					emsg='密码必须是字母';
+	  				}
+	  				//密码验证不通过
+	  				if (!!emsg) {
+	  					event.preventDefault();
+	  					invalidInput(input,emsg);
+	  					return;
+	  				}
+	  				//禁用提交按钮
+	  				disabledBtn(true);
+
+	  			});
+	  		
+	  		
+			addEvent(frame,'load',function(event){
+            		try{
+            			var result = JSON.parse(
+        					frame.contentWindow.document.body.textContent
+            			);
+            			// 还原登录按钮状态
+            			disabledBtn(false);
+                    	// 识别登录结果
+            			if (result.code===200){
+            				showMessage('m-suc','登录成功！');
+            				form.reset();
+            			}
+            		}catch(ex){
+            			// ignore
+            		}
+            	});
+	  		            		
+	  	})();	  	
+	</script>
+</body>
+</html>

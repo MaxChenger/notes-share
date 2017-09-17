@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>一个全等四宫格的实现</title>
+<style type="text/css">
+	body,div,p{margin: 0;padding: 0;}
+
+	.parent{
+		display: flex;
+		background: #ccc;
+		flex-direction:column;
+		width: 100%;
+		height: 400px;
+	}
+	.child{
+		flex:1;
+		display: flex;
+	}
+	.child + .child{
+		margin-top: 10px;
+	}
+	.content{
+		flex:1;
+		background: pink;
+	}
+	.content + .content{
+		margin-left: 10px;
+	}
+</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="child">
+			<p class="content">one</p>
+			<p class="content">two</p>
+		</div>
+		<div class="child">
+			<p class="content">three</p>
+			<p class="content">four</p>
+		</div>
+	</div>
+</body>
+</html>

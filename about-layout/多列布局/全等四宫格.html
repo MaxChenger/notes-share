@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>一个全等四宫格的实现</title>
+<style type="text/css">
+	body,div,p{margin: 0;padding: 0;}
+	
+	/* 先列布局，两个child纵向排列*/
+	.parent{
+		display: flex;
+		background: #ccc;
+		flex-direction:column;
+		width: 100%;
+		height: 400px;
+	}
+
+	/* 两个child占据剩余空间，即纵向平分了*/
+	.child{
+		flex:1;
+		display: flex;
+	}
+
+	/* 设置第二个列的上边距为10px*/
+	.child + .child{
+		margin-top: 10px;
+	}
+
+	/* 横向布局，两个content水平平分*/
+	.content{
+		flex:1;
+		background: pink;
+	}
+
+	/* 设置第二个人content左边距为10px*/
+	.content + .content{
+		margin-left: 10px;
+	}
+</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="child">
+			<p class="content">one</p>
+			<p class="content">two</p>
+		</div>
+		<div class="child">
+			<p class="content">three</p>
+			<p class="content">four</p>
+		</div>
+	</div>
+</body>
+</html>

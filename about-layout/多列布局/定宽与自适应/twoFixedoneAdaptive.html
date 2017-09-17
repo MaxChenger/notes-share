@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>两列定宽一列自适应</title>
+<style type="text/css">
+	.left,.center{background: #ccc;}
+	.right{background: pink;}
+
+	.left,.center{
+		float: left;
+		width: 100px;
+		margin-right: 20px;
+	}
+	.right{overflow: hidden;}
+</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="left">
+			<p>left</p>
+		</div>
+		<div class="center">
+			<p>center</p>
+		</div>
+		<div class="right">
+			<p>right</p>
+			<p>right</p>
+		</div>
+	</div>
+</body>
+</html>

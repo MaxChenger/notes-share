@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>等分布局</title>
+<style type="text/css">
+	body,div,p{margin: 0;padding:0;}
+	/* 1、float
+	border-box是关键，它可以让宽度包含width和padding-left*/
+
+	/*.parent{margin-left: -20px;background: #ccc;}
+	.column{
+		float: left;
+		width: 25%;
+		padding-left: 20px;
+		box-sizing:border-box;
+	}*/
+
+	/*2、table （在parent外面再套一层parent-fixed div）
+	table-layout: fixed;作用：1、使布局优先，加速渲染；2、如果单元格没有设置宽度，则该属性使得单元格平分
+	*/
+	/*.parent-fix{margin-left: -20px;}
+	.parent{
+		display: table;
+		width: 100%;
+		table-layout: fixed;  	
+	}
+	.column{
+		display: table-cell;
+		padding-left: 20px;
+	}*/
+
+	/*3、flex */
+	.parent{display: flex;}
+	.column{
+		flex:1;		
+	}
+	.column +.column{
+		margin-left: 20px;
+	}
+</style>
+</head>
+<body>
+	<div class="parent">
+			<div class="column" style="background:pink;"><p>1</p></div>
+			<div class="column" style="background:yellow;"><p>2</p></div>
+			<div class="column" style="background:pink;"><p>3</p></div>
+			<div class="column" style="background:yellow;"><p>4</p></div>
+	</div>	
+</body>
+</html>

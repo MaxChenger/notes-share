@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>example</title>
+<style type="text/css">
+	.left{background: #ccc;}
+	.right{background: pink;}
+	/*1、左边定宽右边自适应
+	  2、当右边内容或者高度增加或减少时，左边也跟着变化
+	*/
+
+	/* 1、table
+	 table特性是里面的单元格就是等高的
+	 box-sizing:content-box;好像没起到作用，本来是使间距去掉背景色的
+	*/
+	.parent{
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+	}
+	.left,.right{display: table-cell;}
+	.left{
+		width: 100px;
+		border-right: 20px solid transparent;
+		background-clip: padding-box;
+		/*padding-right:20px;
+		  background-clip:content-box;
+		*/
+	}
+
+	/* 2、flex  flex的align-items默认是stretch，所以可以实现等高*/
+	/*.parent{display: flex;}
+	.left{width: 100px;margin-right: 20px;}
+	.right{flex:1;}*/
+
+	/* 3、float  通过改变背景的高度*/
+	/*
+	 padding-bottom: 9999px;使背景变得很高很高
+	 margin-bottom: -9999px;使得高度截取到较高div的高度
+
+	 overflow: hidden;截取高度
+
+	 这里的等高是伪等高，left和right的真实高度是不一样的，只是通过背景设置让他们看起来一样
+
+	*/
+	/*body{margin:20px;}
+	p{background: none!important;}
+	.left,.right{background: #444;}
+	.parent{
+		overflow: hidden;
+	}
+	.left,.right{
+		padding-bottom: 9999px;
+		margin-bottom: -9999px;
+	}
+	.left{
+		float: left; width: 100px;
+		margin-right: 20px;
+	}
+	.right{
+		overflow: hidden;
+	}*/
+</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="left">
+			<p>left</p>
+		</div>
+		<div class="right">
+			<p>right</p>
+			<p>right</p>
+		</div>
+	</div>
+</body>
+</html>

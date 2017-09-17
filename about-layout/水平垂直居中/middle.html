@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>水平居中</title>
+<style type="text/css">
+	body{margin:20px;}
+	.parent{background: pink;}
+	.child{background: yellow;}
+	/*.parent{text-align: center;background: pink;}
+	.child{display: inline-block;background: yellow;}
+	*/
+	
+	/*.child{display: table;margin: 0 auto;}*/
+
+	/*.parent{position: relative;height: 1.5em}
+	.child{position: absolute;left: 50%;transform:translateX(-50%);}*/
+
+	.parent{display: flex;justify-content:center;}
+</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="child">宽高都不确定的情况</div>
+	</div>
+</body>
+</html>

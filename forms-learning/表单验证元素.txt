@@ -1,0 +1,21 @@
+一、可验证元素：button，input，select，textarea
+
+二、novalidate属性只能添加在form元素上用来禁止当前表单内
+的所有可验证元素提交时的验证，但是实际情况我们往往只需要
+禁用某几个可验证的元素即可，那么我们可以用什么方式来禁止
+指定的可验证元素在提交时的验证呢？
+	1.input元素设置type为hidden、reset、button时将不做表单验证
+
+	2.button元素设置type为reset、button时不会做表单验证
+
+	3.input或textarea设置readonly属性时将不会做表单验证
+
+	4.datalist的子孙元素的可验证元素将不会做表单验证
+
+	5.设置了disabled的元素将不会做表单验证
+
+	6.在标签中添加novalidate属性来禁止验证
+
+	7.利用input的formnovalidate，它是HTML5的新标签，formnovalidate 属性覆盖 form 元素的 novalidate 属性。 
+	如果使用该属性，则提交表单时按钮不会执行验证过程。 
+	该属性适用于 以及以下类型的 ：text, search, url, telephone, email, password, date pickers, range 以及 color。
